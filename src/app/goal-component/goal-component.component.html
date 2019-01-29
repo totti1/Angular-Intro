@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>My Goals</h1>
+  <div class="row"><app-goal-form></app-goal-form></div>
+  <ul>
+    <div *ngFor="let wecode of goals; let i = index">
+      <li appStrikethrough>
+        {{ wecode.name | uppercase }} due on
+        {{ wecode.completeDate | dateCount }}
+      </li>
+      <button (click)="toogleDetails(i)">Toogle Details</button>
+
+      <app-goal-details
+        *ngIf="wecode.showDescription"
+        [wecode]="wecode"
+        (isComplete)="deleteGoal($event, i)"
+      ></app-goal-details>
+    </div>
+  </ul>
+  <p *ngIf="goals.length < 10">You have too many goals</p>
+</div>
